@@ -14,7 +14,9 @@
     "prettier": "npx prettier --check ."
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.12",
     "@reduxjs/toolkit": "^1.9.3",
+    "@types/node": "^18.14.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
@@ -32,6 +34,7 @@
     "eslint-import-resolver-typescript": "^3.5.3",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
+    "path": "^0.12.7",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
     "prettier-eslint": "^15.0.1",
