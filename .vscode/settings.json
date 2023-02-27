@@ -1,0 +1,23 @@
+{
+  "editor.tabSize": 2,
+  "files.trimTrailingWhitespace": true,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.alwaysShowStatus": true,
+  "tailwindCSS.experimental.classRegex": [
+    [
+      "Classes \\=([^;]*);",
+      "'([^']*)'"
+    ],
+    [
+      "Classes \\=([^;]*);",
+      "\"([^\"]*)\""
+    ],
+    [
+      "Classes \\=([^;]*);",
+      "\\`([^\\`]*)\\`"
+    ]
+  ]
+}
