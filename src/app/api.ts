@@ -15,7 +15,20 @@ export const api = createApi({
       }),
       invalidatesTags: ['User'],
     }),
-    me: build.query<User, null>({
+    logout: build.mutation<{}, null>({
+      query: () => ({
+        url: '/__admin/scenarios/reset',
+        method: 'POST',
+        headers: {
+          Authorization: `Token ${import.meta.env.VITE_API_ADMIN_KEY}`,
+        },
+      }),
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        await queryFulfilled
+        dispatch(api.util.resetApiState())
+      },
+    }),
+    me: build.query<User | null, null>({
       query: () => ({
         url: 'auth/me',
         method: 'GET',
@@ -25,4 +38,4 @@ export const api = createApi({
   }),
 })
 
-export const { useLoginMutation, useMeQuery } = api
+export const { useLoginMutation, useLogoutMutation, useMeQuery } = api
