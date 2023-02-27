@@ -1,3 +1,13 @@
 @tailwind base;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+    @apply bg-neutral-800 text-white;
+  }
+}
+
 @tailwind components;
 @tailwind utilities;
