@@ -29,4 +29,4 @@ dist-ssr
 .yarn
 coverage
 
-.circleci/
+pnpm-lock.yaml
