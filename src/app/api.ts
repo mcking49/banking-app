@@ -13,8 +13,16 @@ export const api = createApi({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['User'],
+    }),
+    me: build.query<User, null>({
+      query: () => ({
+        url: 'auth/me',
+        method: 'GET',
+      }),
+      providesTags: ['User'],
     }),
   }),
 })
 
-export const { useLoginMutation } = api
+export const { useLoginMutation, useMeQuery } = api

@@ -19,5 +19,6 @@
       "Classes \\=([^;]*);",
       "\\`([^\\`]*)\\`"
     ]
-  ]
+  ],
+  "typescript.preferences.importModuleSpecifier": "relative"
 }
