@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import { SpinnerOverlay } from '@components/loading'
+import { Toaster } from 'react-hot-toast'
 
 import { useMeQuery } from './app/api'
 import Accounts from './pages/Accounts'
@@ -8,7 +8,8 @@ import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import ProtectedRoute from './pages/ProtectedRoute'
 import Transactions from './pages/Transactions'
-import { Toaster } from 'react-hot-toast'
+
+import { SpinnerOverlay } from '@components/loading'
 
 const App: FC = () => {
   const { data: user, isLoading } = useMeQuery(null)

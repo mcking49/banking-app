@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import { forwardRef, type DetailedHTMLProps, type InputHTMLAttributes, type ReactNode } from 'react'
 
 type Props = {

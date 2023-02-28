@@ -1,5 +1,6 @@
 import { type FC, Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+
 import { IconSpinCircle } from '@components/icons'
 
 type Props = {
