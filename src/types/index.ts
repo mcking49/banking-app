@@ -1,12 +1,15 @@
+import { z } from 'zod'
+
 export type User = {
+  uuid: string
   username: string
 }
 
-export type UserState = {
-  user: User | null
-}
+export const LoginSchema = z
+  .object({
+    username: z.string().min(1, { message: 'Username is required' }),
+    password: z.string().min(1, { message: 'Password is required' }),
+  })
+  .required()
 
-export type LoginForm = {
-  username: string
-  password: string
-}
+export type LoginForm = z.infer<typeof LoginSchema>

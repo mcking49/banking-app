@@ -12,6 +12,10 @@ export default defineConfig({
         find: '@components',
         replacement: path.resolve(__dirname, './src/components'),
       },
+      {
+        find: '@types',
+        replacement: path.resolve(__dirname, './src/types/index.ts'),
+      },
     ],
   },
 })

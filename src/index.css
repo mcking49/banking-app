@@ -5,7 +5,7 @@
   body,
   #root {
     height: 100%;
-    @apply bg-neutral-800 text-white;
+    @apply bg-grey-100 text-grey-800;
   }
 }
 

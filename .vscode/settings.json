@@ -8,16 +8,8 @@
   "eslint.alwaysShowStatus": true,
   "tailwindCSS.experimental.classRegex": [
     [
-      "Classes \\=([^;]*);",
-      "'([^']*)'"
-    ],
-    [
-      "Classes \\=([^;]*);",
-      "\"([^\"]*)\""
-    ],
-    [
-      "Classes \\=([^;]*);",
-      "\\`([^\\`]*)\\`"
+      "clsx\\(([^)]*)\\)",
+      "(?:'|\"|`)([^']*)(?:'|\"|`)"
     ]
   ],
   "typescript.preferences.importModuleSpecifier": "relative"

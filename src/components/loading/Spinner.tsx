@@ -1,5 +1,6 @@
 import { type FC, Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import { IconSpinCircle } from '@components/icons'
 
 type Props = {
   isOpen: boolean
@@ -32,16 +33,9 @@ export const SpinnerOverlay: FC<Props> = ({ isOpen }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="flex h-[200px] w-[200px] transform items-center justify-center overflow-hidden rounded-2xl bg-stone-900 p-6 shadow-xl transition-all">
+              <Dialog.Panel className="flex h-[100px] w-[100px] transform items-center justify-center overflow-hidden rounded-2xl bg-white p-6 shadow-xl transition-all">
                 <div className="flex items-center justify-center">
-                  <div
-                    className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-                    role="status"
-                  >
-                    <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-                      Loading...
-                    </span>
-                  </div>
+                  <IconSpinCircle />
                 </div>
               </Dialog.Panel>
             </Transition.Child>

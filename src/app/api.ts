@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+
 import type { LoginForm, User } from '@types'
 
 export const api = createApi({

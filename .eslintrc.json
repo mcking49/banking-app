@@ -36,7 +36,10 @@
     "import/resolver": {
       "typescript": {},
       "alias": {
-        "map": [["@components", "./src/components"]]
+        "map": [
+          ["@components", "./src/components"],
+          ["@types", "./src/types/index.ts"]
+        ]
       }
     }
   }
