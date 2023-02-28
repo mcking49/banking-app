@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { LoginSchema, type LoginForm } from '@types'
 import { useLoginMutation } from '../app/api'
 
+import { Field } from '@components/form'
 import {
   IconLock,
   IconSpinCircle,
@@ -34,9 +35,7 @@ const Login: FC = () => {
       const response = await loginMutation(data).unwrap()
       toast.success(`Welcome back, ${response.username}`)
       navigate('/dashboard/accounts')
-    } catch (e) {
-      toast.error('Something went wrong. Please try again later')
-    }
+    } catch (e) {}
   }
 
   useEffect(() => {
@@ -61,82 +60,44 @@ const Login: FC = () => {
               Login
             </h2>
 
-            <div className={clsx('text-field relative w-full', { 'opacity-80': isSubmitting })}>
-              <input
-                {...register('username')}
-                type="text"
-                placeholder="Username"
-                className={clsx(
-                  'w-full rounded-md bg-grey-100 px-6 py-2 pl-12 outline-none transition-all focus:ring',
-                  { 'focus:ring-secondary-red-400': errors?.username },
-                  'border border-grey-100',
-                  { 'border-secondary-red-400': errors?.username }
-                )}
-                disabled={isSubmitting}
-              />
-              <IconUser className="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 text-grey-500" />
+            <Field
+              {...register('username')}
+              placeholder="Username"
+              isDisabled={isSubmitting}
+              errorMessage={errors?.username?.message}
+              leftIcon={<IconUser />}
+            />
 
-              <span
-                className={clsx(
-                  'absolute top-full left-0 mt-1 text-xs text-secondary-red-400 transition-all',
-                  {
-                    'opacity-0': !errors?.username,
-                    'opacity-100': errors?.username,
-                  }
-                )}
-              >
-                {errors.username?.message}
-              </span>
-            </div>
-
-            <div className={clsx('text-field relative w-full', { 'opacity-80': isSubmitting })}>
-              <input
-                {...register('password')}
-                type={isPwVisible ? 'text' : 'password'}
-                placeholder="Password"
-                className={clsx(
-                  'w-full rounded-md bg-grey-100 px-6 py-2 pl-12 outline-none transition-all focus:ring',
-                  { 'focus:ring-secondary-red-400': errors?.password },
-                  'border border-grey-100',
-                  { 'border-secondary-red-400': errors?.password }
-                )}
-                disabled={isSubmitting}
-              />
-
-              <span
-                className={clsx(
-                  'absolute top-full left-0 mt-1 text-xs text-secondary-red-400 transition-all',
-                  {
-                    'opacity-0': !errors?.password,
-                    'opacity-100': errors?.password,
-                  }
-                )}
-              >
-                {errors.password?.message}
-              </span>
-
-              <IconLock className="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 text-grey-500" />
-
-              <button
-                className="absolute top-1/2 right-3 h-5 w-5 -translate-y-1/2 text-grey-500 transition-all hover:text-grey-900 focus-visible:outline-none"
-                type="button"
-                onClick={() => setIsPwVisible((val) => !val)}
-                disabled={isSubmitting}
-              >
-                <IconViewHidden
-                  className={clsx(
-                    'absolute top-1/2 h-full w-full -translate-y-1/2 transition-all',
-                    { 'opacity-0': !isPwVisible, 'opacity-100': isPwVisible }
-                  )}
-                />
-                <IconViewVisible
-                  className={clsx(
-                    'absolute top-1/2 h-full w-full -translate-y-1/2 transition-all',
-                    { 'opacity-0': isPwVisible, 'opacity-100': !isPwVisible }
-                  )}
-                />
-              </button>
-            </div>
+            <Field
+              {...register('password')}
+              type={isPwVisible ? 'text' : 'password'}
+              placeholder="Password"
+              isDisabled={isSubmitting}
+              errorMessage={errors?.password?.message}
+              leftIcon={<IconLock />}
+              rightIcon={
+                // Should probably refactor this into an IconButton component
+                <button
+                  className="relative h-full w-full text-grey-500 transition-all hover:text-grey-900 focus-visible:outline-none"
+                  type="button"
+                  onClick={() => setIsPwVisible((val) => !val)}
+                  disabled={isSubmitting}
+                >
+                  <IconViewHidden
+                    className={clsx(
+                      'absolute top-1/2 h-full w-full -translate-y-1/2 transition-all',
+                      { 'opacity-0': !isPwVisible, 'opacity-100': isPwVisible }
+                    )}
+                  />
+                  <IconViewVisible
+                    className={clsx(
+                      'absolute top-1/2 h-full w-full -translate-y-1/2 transition-all',
+                      { 'opacity-0': isPwVisible, 'opacity-100': !isPwVisible }
+                    )}
+                  />
+                </button>
+              }
+            />
           </div>
 
           <div className="mt-8 flex w-full justify-center">
