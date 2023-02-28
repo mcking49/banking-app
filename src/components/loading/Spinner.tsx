@@ -35,7 +35,7 @@ export const SpinnerOverlay: FC<Props> = ({ isOpen }) => {
             >
               <Dialog.Panel className="flex h-[100px] w-[100px] transform items-center justify-center overflow-hidden rounded-2xl bg-white p-6 shadow-xl transition-all">
                 <div className="flex items-center justify-center">
-                  <IconSpinCircle />
+                  <IconSpinCircle className="h-10 w-10" />
                 </div>
               </Dialog.Panel>
             </Transition.Child>

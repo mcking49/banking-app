@@ -16,6 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import clsx from 'clsx'
 import { toast } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
+import { Button } from '@components/buttons'
 
 const Login: FC = () => {
   const [loginMutation, { error }] = useLoginMutation()
@@ -101,14 +102,10 @@ const Login: FC = () => {
           </div>
 
           <div className="mt-8 flex w-full justify-center">
-            <button
-              type="submit"
-              className="w-full rounded bg-primary-blue-700 py-2 px-4 text-white transition-all hover:bg-primary-blue-800 disabled:opacity-80"
-              disabled={isSubmitting}
-            >
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
               {isSubmitting && <IconSpinCircle className="mr-2 h-4 w-4" />}
               Login
-            </button>
+            </Button>
           </div>
         </form>
       </div>

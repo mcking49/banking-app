@@ -9,7 +9,9 @@
   "tailwindCSS.experimental.classRegex": [
     [
       "clsx\\(([^)]*)\\)",
-      "(?:'|\"|`)([^']*)(?:'|\"|`)"
+      "(?:'|\"|`)([^']*)(?:'|\"|`)",
+      "cva\\(([^)]*)\\)",
+      "[\"'`]([^\"'`]*).*?[\"'`]"
     ]
   ],
   "typescript.preferences.importModuleSpecifier": "relative"
