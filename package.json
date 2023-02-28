@@ -14,8 +14,19 @@
     "prettier": "npx prettier --check ."
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.12",
+    "@hookform/resolvers": "^2.9.11",
+    "@reduxjs/toolkit": "^1.9.3",
+    "@types/node": "^18.14.2",
+    "clsx": "^1.2.1",
+    "cva": "npm:class-variance-authority@^0.4.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.2",
+    "react-hot-toast": "^2.4.0",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.8.1",
+    "zod": "^3.20.6"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
@@ -26,9 +37,11 @@
     "autoprefixer": "^10.4.13",
     "eslint": "^8.35.0",
     "eslint-config-prettier": "^8.6.0",
+    "eslint-import-resolver-alias": "^1.1.2",
     "eslint-import-resolver-typescript": "^3.5.3",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
+    "path": "^0.12.7",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
     "prettier-eslint": "^15.0.1",

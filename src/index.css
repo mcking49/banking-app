@@ -1,3 +1,13 @@
 @tailwind base;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+    @apply bg-grey-100 text-grey-800;
+  }
+}
+
 @tailwind components;
 @tailwind utilities;

@@ -34,7 +34,13 @@
   },
   "settings": {
     "import/resolver": {
-      "typescript": {}
+      "typescript": {},
+      "alias": {
+        "map": [
+          ["@components", "./src/components"],
+          ["@types", "./src/types/index.ts"]
+        ]
+      }
     }
   }
 }
