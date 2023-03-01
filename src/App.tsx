@@ -1,8 +1,10 @@
 import { FC, useEffect, useState } from 'react'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
 import { useMeQuery } from './app/api'
+import { useAppDispatch } from './app/hooks'
+import { Pages, setPage } from './app/slices/pageSlice'
 import Accounts from './pages/Accounts'
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
@@ -14,6 +16,8 @@ import { SpinnerOverlay } from '@components/loading'
 const App: FC = () => {
   const { data: user, isLoading } = useMeQuery(null)
   const [isFirstLoad, setIsFirstLoad] = useState(true)
+  const location = useLocation()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     if (!isLoading && isFirstLoad) {
@@ -21,26 +25,41 @@ const App: FC = () => {
     }
   }, [isLoading])
 
+  useEffect(() => {
+    switch (location.pathname) {
+      case '/dashboard/accounts':
+        dispatch(setPage('Accounts'))
+        break
+      case '/dashboard/transactions':
+        dispatch(setPage('Transactions'))
+        break
+      case '/login':
+        dispatch(setPage('Login'))
+        break
+      default:
+        dispatch(setPage(Pages.unknown))
+        break
+    }
+  }, [location])
+
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Navigate replace to="/dashboard/accounts" />} />
+      <Routes>
+        <Route path="/" element={<Navigate replace to="/dashboard/accounts" />} />
 
-          {/* User must be logged IN to access routes */}
-          <Route element={<ProtectedRoute isAllowed={!!user} redirectPath="/login" />}>
-            <Route path="/dashboard" element={<Dashboard />}>
-              <Route path="accounts" element={<Accounts />} />
-              <Route path="transactions" element={<Transactions />} />
-            </Route>
+        {/* User must be logged IN to access routes */}
+        <Route element={<ProtectedRoute isAllowed={!!user} redirectPath="/login" />}>
+          <Route path="/dashboard" element={<Dashboard />}>
+            <Route path="accounts" element={<Accounts />} />
+            <Route path="transactions" element={<Transactions />} />
           </Route>
+        </Route>
 
-          {/* User must be logged OUT to access routes */}
-          <Route element={<ProtectedRoute isAllowed={!user} redirectPath="/dashboard/accounts" />}>
-            <Route path="/login" element={<Login />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+        {/* User must be logged OUT to access routes */}
+        <Route element={<ProtectedRoute isAllowed={!user} redirectPath="/dashboard/accounts" />}>
+          <Route path="/login" element={<Login />} />
+        </Route>
+      </Routes>
 
       <SpinnerOverlay isOpen={isFirstLoad} />
 
