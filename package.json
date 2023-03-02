@@ -15,6 +15,8 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.12",
+    "@headlessui/tailwindcss": "^0.1.2",
+    "@heroicons/react": "^2.0.16",
     "@hookform/resolvers": "^2.9.11",
     "@reduxjs/toolkit": "^1.9.3",
     "@types/node": "^18.14.2",
