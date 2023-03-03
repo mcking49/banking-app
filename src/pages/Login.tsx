@@ -5,7 +5,7 @@ import { clsx } from 'clsx'
 import { toast } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
-import { useLoginMutation } from '../app/api'
+import { useLazyMeQuery, useLoginMutation } from '../app/api'
 
 import { Field } from '@components/form'
 import {
@@ -20,6 +20,7 @@ import { Button } from '@components/buttons'
 
 const Login: FC = () => {
   const [loginMutation, { error }] = useLoginMutation()
+  const [fetchMe] = useLazyMeQuery()
   const [isPwVisible, setIsPwVisible] = useState(false)
   const navigate = useNavigate()
 
@@ -34,6 +35,7 @@ const Login: FC = () => {
   const login = async (data: LoginForm) => {
     try {
       const response = await loginMutation(data).unwrap()
+      await fetchMe(null)
       toast.success(`Welcome back, ${response.username}`)
       navigate('/dashboard/accounts')
     } catch (e) {}
