@@ -2,13 +2,8 @@ import { Popover, Transition } from '@headlessui/react'
 import {
   ArrowLeftOnRectangleIcon,
   BanknotesIcon as BanknotesIconOutline,
-  DocumentTextIcon as DocumentTextIconOutline,
 } from '@heroicons/react/24/outline'
-import {
-  Bars3Icon,
-  BanknotesIcon as BanknotesIconSolid,
-  DocumentTextIcon as DocumentTextIconSolid,
-} from '@heroicons/react/24/solid'
+import { BanknotesIcon as BanknotesIconSolid, Bars3Icon } from '@heroicons/react/24/solid'
 import { clsx } from 'clsx'
 import { FC, Fragment, useRef } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
@@ -120,37 +115,6 @@ const Dashboard: FC = () => {
                                   )}
                                 />
                                 <span>Accounts</span>
-                              </>
-                            )}
-                          </NavLink>
-                        </li>
-                        <li className="w-full">
-                          <NavLink
-                            to="/dashboard/transactions"
-                            onClick={() => close()}
-                            className={({ isActive }) =>
-                              clsx(
-                                'relative inline-flex w-full items-center rounded-lg py-2 px-4 pl-12 text-grey-800 transition-all',
-                                !isActive && 'hover:bg-primary-blue-40 hover:text-primary-blue-900',
-                                isActive && 'bg-primary-blue-100 text-primary-blue-800'
-                              )
-                            }
-                          >
-                            {({ isActive }) => (
-                              <>
-                                <DocumentTextIconOutline
-                                  className={clsx(
-                                    'absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 transition-all',
-                                    isActive ? 'opacity-0' : 'opacity-100'
-                                  )}
-                                />
-                                <DocumentTextIconSolid
-                                  className={clsx(
-                                    'absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 transition-all',
-                                    isActive ? 'opacity-100' : 'opacity-0'
-                                  )}
-                                />
-                                <span>Transactions</span>
                               </>
                             )}
                           </NavLink>
