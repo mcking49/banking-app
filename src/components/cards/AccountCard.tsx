@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { clsx } from 'clsx'
 
 import { numberAsCurrency } from '../../utils/numberAsCurrency'
+import { accountName } from '../../utils/accountName'
 
 import { Account } from '@types'
 
@@ -13,14 +14,6 @@ type Props = {
 export const AccountCard: FC<Props> = ({ account }) => {
   const balance = numberAsCurrency(account.balance)
   const [wholeNumOfBal, decimal] = balance.split('.')
-
-  const accountName = (account: Account) => {
-    if (account.name) {
-      return account.name
-    }
-
-    return account.type.charAt(0).toUpperCase() + account.type.slice(1)
-  }
 
   return (
     <Link to={account.uuid} key={account.uuid}>

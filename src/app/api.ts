@@ -8,12 +8,26 @@ export const api = createApi({
   }),
   tagTypes: ['User', 'Accounts'],
   endpoints: (build) => ({
+    account: build.query<Account | null, { accountId: string }>({
+      query: ({ accountId }) => ({
+        url: `/accounts/${accountId}`,
+        method: 'GET',
+      }),
+      providesTags: (result) =>
+        result ? [{ type: 'Accounts', id: result.uuid }] : [{ type: 'Accounts', id: 'ITEM' }],
+    }),
     accounts: build.query<Account[] | null, { userId: string }>({
       query: ({ userId }) => ({
         url: `/user/${userId}/accounts`,
         method: 'GET',
       }),
-      providesTags: ['Accounts'],
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ uuid }) => ({ type: 'Accounts' as const, id: uuid })),
+              { type: 'Accounts', id: 'LIST' },
+            ]
+          : [{ type: 'Accounts', id: 'LIST' }],
     }),
     login: build.mutation<User, LoginForm>({
       query: (body) => ({
@@ -46,5 +60,11 @@ export const api = createApi({
   }),
 })
 
-export const { useLoginMutation, useLogoutMutation, useMeQuery, useLazyMeQuery, useAccountsQuery } =
-  api
+export const {
+  useAccountQuery,
+  useAccountsQuery,
+  useLazyMeQuery,
+  useLoginMutation,
+  useLogoutMutation,
+  useMeQuery,
+} = api
