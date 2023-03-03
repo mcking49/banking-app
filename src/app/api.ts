@@ -1,12 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import type { Account, LoginForm, User } from '@types'
+import type { Account, LoginForm, Transaction, User } from '@types'
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
   }),
-  tagTypes: ['User', 'Accounts'],
+  tagTypes: ['User', 'Accounts', 'Transactions'],
   endpoints: (build) => ({
     account: build.query<Account | null, { accountId: string }>({
       query: ({ accountId }) => ({
@@ -57,6 +57,23 @@ export const api = createApi({
       }),
       providesTags: ['User'],
     }),
+    transactions: build.query<Transaction[] | null, { accountId: string }>({
+      query: ({ accountId }) => ({
+        url: `/accounts/${accountId}/transactions`,
+        method: 'GET',
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ accountId, uuid }) => ({
+                type: 'Transactions' as const,
+                id: uuid,
+                accountId,
+              })),
+              { type: 'Transactions', id: 'LIST' },
+            ]
+          : [{ type: 'Transactions', id: 'LIST' }],
+    }),
   }),
 })
 
@@ -67,4 +84,5 @@ export const {
   useLoginMutation,
   useLogoutMutation,
   useMeQuery,
+  useTransactionsQuery,
 } = api
