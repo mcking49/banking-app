@@ -51,7 +51,7 @@ const App: FC = () => {
         <Route element={<ProtectedRoute isAllowed={!!user} redirectPath="/login" />}>
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="accounts" element={<Accounts />} />
-            <Route path="transactions" element={<Transactions />} />
+            <Route path="accounts/:accountId/transactions" element={<Transactions />} />
           </Route>
         </Route>
 
