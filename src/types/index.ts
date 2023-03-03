@@ -30,6 +30,7 @@ export type AccountForm = z.infer<typeof AccountSchema>
 
 export type Account = AccountForm & {
   uuid: string
+  userId: string
   balance: number
 }
 

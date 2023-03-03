@@ -66,7 +66,7 @@ const Dashboard: FC = () => {
                   leaveFrom="opacity-100 translate-x-0"
                   leaveTo="opacity-0 translate-x-1/2"
                 >
-                  <Popover.Panel className="absolute right-0 top-0 h-screen w-4/5 shadow-lg">
+                  <Popover.Panel className="absolute right-0 top-0 h-screen w-4/5 max-w-xs shadow-lg">
                     {/* Menu inside a div as im likely to extract it out as a component soon */}
                     <div className="flex h-full w-full flex-col items-center bg-white p-8">
                       {/* avatar */}

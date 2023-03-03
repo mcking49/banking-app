@@ -1,13 +1,20 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import type { LoginForm, User } from '@types'
+import type { Account, LoginForm, User } from '@types'
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
   }),
-  tagTypes: ['User'],
+  tagTypes: ['User', 'Accounts'],
   endpoints: (build) => ({
+    accounts: build.query<Account[] | null, { userId: string }>({
+      query: ({ userId }) => ({
+        url: `/user/${userId}/accounts`,
+        method: 'GET',
+      }),
+      providesTags: ['Accounts'],
+    }),
     login: build.mutation<User, LoginForm>({
       query: (body) => ({
         url: 'auth/login',
@@ -39,4 +46,5 @@ export const api = createApi({
   }),
 })
 
-export const { useLoginMutation, useLogoutMutation, useMeQuery, useLazyMeQuery } = api
+export const { useLoginMutation, useLogoutMutation, useMeQuery, useLazyMeQuery, useAccountsQuery } =
+  api
