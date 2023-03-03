@@ -5,6 +5,7 @@ import { useAppDispatch } from '../app/hooks'
 import { setPageTitle } from '../app/slices/pageTitleSlice'
 
 import { AccountCard } from '@components/cards'
+import { AccountCardSkeleton } from '@components/loading'
 
 const Accounts: FC = () => {
   const dispatch = useAppDispatch()
@@ -17,15 +18,19 @@ const Accounts: FC = () => {
 
   return (
     <div className="flex w-full flex-col items-center gap-4">
-      {accounts?.map((account, index) => (
-        <div
-          key={account.uuid}
-          className="staggered-item"
-          style={{ ['--animation-order' as string]: index.toString() }}
-        >
-          <AccountCard account={account} />
-        </div>
-      ))}
+      {accounts ? (
+        accounts.map((account, index) => (
+          <div
+            key={account.uuid}
+            className="staggered-item"
+            style={{ ['--animation-order' as string]: index.toString() }}
+          >
+            <AccountCard account={account} />
+          </div>
+        ))
+      ) : (
+        <AccountCardSkeleton />
+      )}
     </div>
   )
 }

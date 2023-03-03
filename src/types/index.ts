@@ -38,7 +38,7 @@ export type Transaction = {
   uuid: string
   createdAt: string // ISOString timestamp
   updatedAt: string // ISOString timestamp
-  description: string
+  payee: string
   accountId: string
   amount: number
 }

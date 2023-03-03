@@ -3,10 +3,14 @@ import {
   ArrowLeftOnRectangleIcon,
   BanknotesIcon as BanknotesIconOutline,
 } from '@heroicons/react/24/outline'
-import { BanknotesIcon as BanknotesIconSolid, Bars3Icon } from '@heroicons/react/24/solid'
+import {
+  ArrowLeftIcon,
+  BanknotesIcon as BanknotesIconSolid,
+  Bars3Icon,
+} from '@heroicons/react/24/solid'
 import { clsx } from 'clsx'
 import { FC, Fragment, useRef } from 'react'
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 import { useLogoutMutation, useMeQuery } from '../app/api'
 import { useAppSelector } from '../app/hooks'
@@ -17,6 +21,7 @@ const Dashboard: FC = () => {
   const currentPage = useAppSelector(selectPageTitle)
   const headerNavRef = useRef<HTMLElement>(null)
   const navigate = useNavigate()
+  const location = useLocation()
 
   const { data: user } = useMeQuery(null)
 
@@ -34,10 +39,28 @@ const Dashboard: FC = () => {
         ref={headerNavRef}
         className="absolute top-0 left-0 flex w-full items-center justify-between bg-white p-4 shadow-sm"
       >
-        <h1 className="text-center text-lg font-bold uppercase tracking-widest text-primary-blue-900">
-          {currentPage}
+        {location.pathname !== '/dashboard/accounts' && (
+          <button onClick={() => navigate(-1)} className="border border-transparent p-1">
+            <ArrowLeftIcon className="h-6 w-6 text-primary-blue-900" />
+          </button>
+        )}
+        <h1
+          className={clsx(
+            'text-center text-lg font-bold uppercase tracking-widest text-primary-blue-900',
+            !currentPage && 'h-5 w-1/2 animate-pulse bg-grey-200'
+          )}
+        >
+          <Transition
+            as={Fragment}
+            show={!!currentPage}
+            enter="transition-opacity duration-200"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+          >
+            <span>{currentPage}</span>
+          </Transition>
         </h1>
-        <Popover>
+        <Popover className="z-50">
           {({ close }) => (
             <>
               <Popover.Button className="rounded border border-primary-blue-900 p-1 outline-none">

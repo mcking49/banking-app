@@ -17,6 +17,12 @@ const Account: FC = () => {
     }
   }, [account])
 
+  useEffect(() => {
+    if (!account) {
+      dispatch(setPageTitle(null))
+    }
+  }, [])
+
   return <div>Account</div>
 }
 

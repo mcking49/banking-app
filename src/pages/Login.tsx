@@ -37,7 +37,7 @@ const Login: FC = () => {
       const response = await loginMutation(data).unwrap()
       await fetchMe(null)
       toast.success(`Welcome back, ${response.username}`)
-      navigate('/dashboard/accounts')
+      navigate('/dashboard/accounts', { replace: true })
     } catch (e) {}
   }
 
