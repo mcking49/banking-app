@@ -10,11 +10,11 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 
 import { useLogoutMutation, useMeQuery } from '../app/api'
 import { useAppSelector } from '../app/hooks'
-import { selectPage } from '../app/slices/pageSlice'
+import { selectPageTitle } from '../app/slices/pageTitleSlice'
 
 const Dashboard: FC = () => {
   const [logout] = useLogoutMutation()
-  const currentPage = useAppSelector(selectPage)
+  const currentPage = useAppSelector(selectPageTitle)
   const headerNavRef = useRef<HTMLElement>(null)
   const navigate = useNavigate()
 

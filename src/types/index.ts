@@ -1,7 +1,5 @@
 import { z } from 'zod'
 
-export type ObjectValues<T> = T[keyof T]
-
 export type User = {
   uuid: string
   username: string

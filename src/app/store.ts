@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import { api } from './api'
-import pageReducer from './slices/pageSlice'
+import pageTitleReducer from './slices/pageTitleSlice'
 
 const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
-    page: pageReducer,
+    pageTitle: pageTitleReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware),
 })
