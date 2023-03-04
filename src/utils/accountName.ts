@@ -1,3 +1,5 @@
+import { capitalise } from './stringHelpers'
+
 import { Account } from '@types'
 
 export const accountName = (account: Account) => {
@@ -5,5 +7,5 @@ export const accountName = (account: Account) => {
     return account.name
   }
 
-  return account.type.charAt(0).toUpperCase() + account.type.slice(1)
+  return capitalise(account.type)
 }

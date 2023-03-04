@@ -14,7 +14,7 @@ export const LoginSchema = z
 
 export type LoginForm = z.infer<typeof LoginSchema>
 
-const AccountTypes = ['savings', 'everyday', 'online'] as const
+export const AccountTypes = ['savings', 'everyday', 'online'] as const
 
 export type AccountType = (typeof AccountTypes)[number]
 

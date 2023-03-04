@@ -1,16 +1,19 @@
 import { Fragment, useEffect, useState, type FC } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
+import { Dialog, Listbox, Transition } from '@headlessui/react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { ChevronDownIcon } from '@heroicons/react/24/solid'
+import { clsx } from 'clsx'
 
 import { useAccountsQuery, useMeQuery } from '../app/api'
 import { useAppDispatch } from '../app/hooks'
 import { setPageTitle } from '../app/slices/pageTitleSlice'
+import { capitalise } from '../utils/stringHelpers'
 
 import { AccountSummaryCard } from '@components/cards'
 import { AccountCardSkeleton } from '@components/loading'
 import { Button } from '@components/buttons'
-import { AccountForm, AccountSchema } from '@types'
+import { AccountForm, AccountSchema, AccountTypes } from '@types'
 import { Field } from '@components/form'
 import { IconSpinCircle } from '@components/icons'
 
@@ -24,9 +27,17 @@ const Accounts: FC = () => {
     handleSubmit,
     register,
     formState: { isSubmitting, errors },
+    watch,
+    setValue,
   } = useForm<AccountForm>({
     resolver: zodResolver(AccountSchema),
+    defaultValues: {
+      type: 'everyday',
+      name: '',
+    },
   })
+
+  const selectedType = watch('type')
 
   const createAccount = (data: AccountForm) => {
     console.log('--- submitting new account', data)
@@ -81,13 +92,49 @@ const Accounts: FC = () => {
               className="mt-8 flex h-full w-full flex-col gap-8 bg-white"
               onSubmit={handleSubmit(createAccount)}
             >
-              {/* TODO: change this to @HeadlessUI/ListBox */}
-              <Field
+              <Listbox
                 {...register('type')}
-                placeholder="Select an account type"
-                isDisabled={isSubmitting}
-                errorMessage={errors?.type?.message}
-              />
+                as="div"
+                className="relative z-10"
+                onChange={(value) => {
+                  setValue('type', value)
+                }}
+              >
+                <Listbox.Button className="relative w-full rounded-md border border-grey-100 bg-grey-100 px-6 py-2 pr-12 text-left outline-none transition-all focus:ring">
+                  {({ open }) => (
+                    <>
+                      <span>{capitalise(selectedType)}</span>
+                      <ChevronDownIcon
+                        className={clsx(
+                          'absolute top-1/2 right-3 flex h-5 w-5 -translate-y-1/2 text-grey-500 transition-all',
+                          { 'rotate-180': open }
+                        )}
+                      />
+                    </>
+                  )}
+                </Listbox.Button>
+
+                <Transition
+                  enter="transition duration-100 ease-out"
+                  enterFrom="transform scale-95 opacity-0"
+                  enterTo="transform scale-100 opacity-100"
+                  leave="transition duration-75 ease-out"
+                  leaveFrom="transform scale-100 opacity-100"
+                  leaveTo="transform scale-95 opacity-0"
+                >
+                  <Listbox.Options className="absolute z-50 w-full translate-y-1 rounded-md border border-grey-100 bg-white py-1 drop-shadow-xl">
+                    {AccountTypes.map((type) => (
+                      <Listbox.Option
+                        key={type}
+                        value={type}
+                        className="py-2 px-4 hover:cursor-pointer hover:bg-primary-blue-100 hover:text-primary-blue-800"
+                      >
+                        {capitalise(type)}
+                      </Listbox.Option>
+                    ))}
+                  </Listbox.Options>
+                </Transition>
+              </Listbox>
 
               <Field
                 {...register('name')}
