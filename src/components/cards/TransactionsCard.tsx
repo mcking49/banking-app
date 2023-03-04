@@ -11,7 +11,7 @@ export const TransactionsCard = ({ accountId }: Props) => {
   const { data: transactions } = useTransactionsQuery({ accountId: accountId! })
 
   return (
-    <div className="mt-8 flex w-full flex-col items-center rounded-md bg-white p-8 drop-shadow-md">
+    <div className="mt-8 flex w-full max-w-xl flex-col items-center rounded-md bg-white p-8 drop-shadow-md">
       <h2 className="mb-6 font-bold uppercase tracking-widest text-primary-blue-700">
         Recent Transactions
       </h2>
