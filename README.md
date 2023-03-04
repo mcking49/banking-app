@@ -1,5 +1,6 @@
 [![Build App](https://github.com/mcking49/banking-app/actions/workflows/build.yml/badge.svg)](https://github.com/mcking49/banking-app/actions/workflows/build.yml)
 [![Lint Check](https://github.com/mcking49/banking-app/actions/workflows/lint.yml/badge.svg)](https://github.com/mcking49/banking-app/actions/workflows/lint.yml)
+[![Deploy to Prod](https://github.com/mcking49/banking-app/actions/workflows/firebase-hosting-merge.yml/badge.svg)](https://github.com/mcking49/banking-app/actions/workflows/firebase-hosting-merge.yml)
 
 # ANZ Wholesale Engineering Sample Project (UI)
 
