@@ -25,8 +25,8 @@ export const Card: FC<Props> = ({ heading, children, isDisabled, isDisabledText,
   <LinkOrFragment to={isDisabled ? null : to}>
     <div
       className={clsx(
-        'flex w-64 flex-col items-center justify-center gap-1 rounded-md border-x-4 border-white bg-white p-4',
-        { 'drop-shadow-md': !isDisabled },
+        'flex w-64 flex-col items-center justify-center gap-1 rounded-md border-x-4 border-white p-4',
+        !isDisabled && 'bg-white drop-shadow-md',
         isDisabled && 'border-r-grey-40 border-l-secondary-yellow-400 bg-grey-40',
         to &&
           !isDisabled &&

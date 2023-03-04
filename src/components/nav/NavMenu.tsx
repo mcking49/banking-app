@@ -1,10 +1,11 @@
 import { BanknotesIcon as BanknotesIconOutline } from '@heroicons/react/24/outline'
 import { BanknotesIcon as BanknotesIconSolid } from '@heroicons/react/24/solid'
 import { clsx } from 'clsx'
+import type { FC, HTMLAttributes } from 'react'
 import { NavLink } from 'react-router-dom'
 
-export const NavMenu = () => (
-  <ul className="flex w-full flex-col gap-4 lg:w-auto lg:flex-row">
+export const NavMenu: FC<HTMLAttributes<HTMLUListElement>> = ({ className, ...props }) => (
+  <ul className={clsx('flex w-full flex-col gap-4 lg:w-auto lg:flex-row', className)} {...props}>
     <li>
       <NavLink
         to="/dashboard/accounts"

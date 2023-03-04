@@ -2,7 +2,7 @@ import { Popover, Transition } from '@headlessui/react'
 import { ArrowLeftOnRectangleIcon } from '@heroicons/react/24/outline'
 import { ArrowLeftIcon, Bars3Icon } from '@heroicons/react/24/solid'
 import { clsx } from 'clsx'
-import { FC, Fragment, useRef } from 'react'
+import { FC, Fragment } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 import { useLogoutMutation, useMeQuery } from '../app/api'
@@ -15,7 +15,6 @@ import { NavMenu } from '@components/nav'
 const Dashboard: FC = () => {
   const [logout] = useLogoutMutation()
   const currentPage = useAppSelector(selectPageTitle)
-  const headerNavRef = useRef<HTMLElement>(null)
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -26,15 +25,9 @@ const Dashboard: FC = () => {
   }
 
   return (
-    <div
-      className="relative flex h-full w-full flex-col overflow-auto"
-      style={{ paddingTop: headerNavRef.current?.offsetHeight ?? 0 }}
-    >
+    <div className="relative flex h-full w-full flex-col overflow-auto pt-16 lg:pt-24">
       {/* Header nav */}
-      <nav
-        ref={headerNavRef}
-        className="absolute top-0 left-0 flex w-full items-center justify-between bg-white p-4 shadow-sm lg:justify-start lg:gap-8 lg:pl-20"
-      >
+      <nav className="absolute top-0 left-0 flex w-full items-center justify-between bg-white p-4 shadow-sm lg:justify-start lg:gap-8 lg:pl-20">
         {location.pathname !== '/dashboard/accounts' && (
           <button
             onClick={() => navigate(-1)}
@@ -65,7 +58,7 @@ const Dashboard: FC = () => {
           </Transition>
         </h1>
 
-        <NavMenu />
+        <NavMenu className="hidden lg:flex" />
 
         <div className="ml-auto hidden lg:block">
           <button
@@ -110,7 +103,7 @@ const Dashboard: FC = () => {
                   leaveFrom="opacity-100 translate-x-0"
                   leaveTo="opacity-0 translate-x-1/2"
                 >
-                  <Popover.Panel className="absolute right-0 top-0 h-screen w-4/5 max-w-xs shadow-lg">
+                  <Popover.Panel className="fixed right-0 top-0 h-full w-4/5 max-w-xs shadow-lg">
                     {/* Menu inside a div as im likely to extract it out as a component soon */}
                     <div className="flex h-full w-full flex-col items-center bg-white p-8">
                       {/* avatar */}
