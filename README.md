@@ -5,7 +5,7 @@
 
 Developed by Miten Chauhan (2023)
 
-https://miten-anz-test.web.app/
+https://miten-anz.web.app/
 
 ## Testing
 
