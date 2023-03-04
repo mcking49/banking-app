@@ -4,7 +4,7 @@ import { useAccountsQuery, useMeQuery } from '../app/api'
 import { useAppDispatch } from '../app/hooks'
 import { setPageTitle } from '../app/slices/pageTitleSlice'
 
-import { AccountCard } from '@components/cards'
+import { AccountSummaryCard } from '@components/cards'
 import { AccountCardSkeleton } from '@components/loading'
 
 const Accounts: FC = () => {
@@ -25,7 +25,7 @@ const Accounts: FC = () => {
             className="staggered-item"
             style={{ ['--animation-order' as string]: index.toString() }}
           >
-            <AccountCard account={account} />
+            <AccountSummaryCard account={account} />
           </div>
         ))
       ) : (
