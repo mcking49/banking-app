@@ -4,8 +4,9 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ChevronDownIcon } from '@heroicons/react/24/solid'
 import { clsx } from 'clsx'
+import { toast } from 'react-hot-toast'
 
-import { useAccountsQuery, useMeQuery } from '../app/api'
+import { useAccountsQuery, useCreateAccountMutation, useMeQuery } from '../app/api'
 import { useAppDispatch } from '../app/hooks'
 import { setPageTitle } from '../app/slices/pageTitleSlice'
 import { capitalise } from '../utils/stringHelpers'
@@ -13,7 +14,7 @@ import { capitalise } from '../utils/stringHelpers'
 import { AccountSummaryCard } from '@components/cards'
 import { AccountCardSkeleton } from '@components/loading'
 import { Button } from '@components/buttons'
-import { AccountForm, AccountSchema, AccountTypes } from '@types'
+import { AccountForm, AccountSchema, AccountType, AccountTypes } from '@types'
 import { Field } from '@components/form'
 import { IconSpinCircle } from '@components/icons'
 
@@ -22,6 +23,7 @@ const Accounts: FC = () => {
   const { data: user } = useMeQuery(null)
   const { data: accounts } = useAccountsQuery({ userId: user!.uuid }, {})
   const [isNewAccountFormOpen, setIsNewAccountFormOpen] = useState(false)
+  const [createAccountMutation] = useCreateAccountMutation()
 
   const {
     handleSubmit,
@@ -39,8 +41,14 @@ const Accounts: FC = () => {
 
   const selectedType = watch('type')
 
-  const createAccount = (data: AccountForm) => {
-    console.log('--- submitting new account', data)
+  const createAccount = async (data: AccountForm) => {
+    try {
+      await createAccountMutation(data)
+      toast.success('New Account Created!')
+      setIsNewAccountFormOpen(false)
+    } catch (error) {
+      toast.error('Something went wrong, please try again later')
+    }
   }
 
   useEffect(() => {
@@ -96,7 +104,7 @@ const Accounts: FC = () => {
                 {...register('type')}
                 as="div"
                 className="relative z-10"
-                onChange={(value) => {
+                onChange={(value: AccountType) => {
                   setValue('type', value)
                 }}
               >
