@@ -15,5 +15,7 @@
       "[\"'`]([^\"'`]*).*?[\"'`]"
     ]
   ],
+  "typescript.format.semicolons": "remove",
+  "typescript.preferences.quoteStyle": "single",
   "typescript.preferences.importModuleSpecifier": "relative"
 }

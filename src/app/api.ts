@@ -1,13 +1,34 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import type { LoginForm, User } from '@types'
+import type { Account, LoginForm, Transaction, User } from '@types'
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
   }),
-  tagTypes: ['User'],
+  tagTypes: ['User', 'Accounts', 'Transactions'],
   endpoints: (build) => ({
+    account: build.query<Account | null, { accountId: string }>({
+      query: ({ accountId }) => ({
+        url: `/accounts/${accountId}`,
+        method: 'GET',
+      }),
+      providesTags: (result) =>
+        result ? [{ type: 'Accounts', id: result.uuid }] : [{ type: 'Accounts', id: 'ITEM' }],
+    }),
+    accounts: build.query<Account[] | null, { userId: string }>({
+      query: ({ userId }) => ({
+        url: `/user/${userId}/accounts`,
+        method: 'GET',
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ uuid }) => ({ type: 'Accounts' as const, id: uuid })),
+              { type: 'Accounts', id: 'LIST' },
+            ]
+          : [{ type: 'Accounts', id: 'LIST' }],
+    }),
     login: build.mutation<User, LoginForm>({
       query: (body) => ({
         url: 'auth/login',
@@ -36,7 +57,32 @@ export const api = createApi({
       }),
       providesTags: ['User'],
     }),
+    transactions: build.query<Transaction[] | null, { accountId: string }>({
+      query: ({ accountId }) => ({
+        url: `/accounts/${accountId}/transactions`,
+        method: 'GET',
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ accountId, uuid }) => ({
+                type: 'Transactions' as const,
+                id: uuid,
+                accountId,
+              })),
+              { type: 'Transactions', id: 'LIST' },
+            ]
+          : [{ type: 'Transactions', id: 'LIST' }],
+    }),
   }),
 })
 
-export const { useLoginMutation, useLogoutMutation, useMeQuery, useLazyMeQuery } = api
+export const {
+  useAccountQuery,
+  useAccountsQuery,
+  useLazyMeQuery,
+  useLoginMutation,
+  useLogoutMutation,
+  useMeQuery,
+  useTransactionsQuery,
+} = api
