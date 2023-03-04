@@ -28,10 +28,15 @@ export const AccountSchema = z.object({
 
 export type AccountForm = z.infer<typeof AccountSchema>
 
+export const AccountStatuses = ['pending', 'active'] as const
+
+export type AccountStatus = (typeof AccountStatuses)[number]
+
 export type Account = AccountForm & {
   uuid: string
   userId: string
   balance: number
+  status: AccountStatus
 }
 
 export type Transaction = {

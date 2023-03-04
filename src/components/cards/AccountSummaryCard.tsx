@@ -16,7 +16,12 @@ export const AccountSummaryCard: FC<Props> = ({ account }) => {
   const [wholeNumOfBal, decimal] = balance.split('.')
 
   return (
-    <Card to={account.uuid} heading={accountName(account)}>
+    <Card
+      to={account.uuid}
+      heading={accountName(account)}
+      isDisabled={account.status === 'pending'}
+      isDisabledText={account.status === 'pending' ? account.status : null}
+    >
       <p className="text-center text-xl font-semibold">
         <span>{wholeNumOfBal}</span>
         <span className="text-sm font-normal text-grey-500">.{decimal}</span>
