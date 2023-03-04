@@ -59,7 +59,7 @@ const Login: FC = () => {
 
         <form className="mt-8 h-full w-full" onSubmit={handleSubmit(login)}>
           <div className="flex w-full flex-col gap-8 rounded-lg border-t-8 border-t-primary-blue-700 bg-white px-6 py-10 shadow-lg">
-            <h2 className="text-center text-lg font-bold uppercase tracking-widest text-grey-600 ">
+            <h2 className="text-center text-lg font-bold uppercase tracking-widest text-grey-600">
               Login
             </h2>
 

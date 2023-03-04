@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import type { Account, LoginForm, Transaction, User } from '@types'
+import type { Account, AccountForm, LoginForm, Transaction, User } from '@types'
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
@@ -8,6 +8,14 @@ export const api = createApi({
   }),
   tagTypes: ['User', 'Accounts', 'Transactions'],
   endpoints: (build) => ({
+    createAccount: build.mutation<{}, AccountForm>({
+      query: (body) => ({
+        url: '/accounts',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: [{ type: 'Accounts', id: 'LIST' }],
+    }),
     account: build.query<Account | null, { accountId: string }>({
       query: ({ accountId }) => ({
         url: `/accounts/${accountId}`,
@@ -80,6 +88,7 @@ export const api = createApi({
 export const {
   useAccountQuery,
   useAccountsQuery,
+  useCreateAccountMutation,
   useLazyMeQuery,
   useLoginMutation,
   useLogoutMutation,
